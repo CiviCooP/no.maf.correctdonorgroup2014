@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <extension key="no.maf.correctdonorgroup2014" type="module">
   <file>correctdonorgroup2014</file>
-  <name>FIXME</name>
-  <description>FIXME</description>
+  <name>Donor Groups for 2014 Contributions</name>
+  <description>Set Donor Group for all completed 2014 contributions that do not have any yet</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Erik Hommel</author>
-    <email>hommel@ee-atwork.nl</email>
+    <email>helpdesk@civicoop.org</email>
   </maintainer>
   <releaseDate>2014-09-23</releaseDate>
   <version>1.0</version>
@@ -14,7 +14,7 @@
   <compatibility>
     <ver>4.2</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments>Migration extension, expected to run only once</comments>
   <civix>
     <namespace>CRM/Correctdonorgroup2014</namespace>
   </civix>

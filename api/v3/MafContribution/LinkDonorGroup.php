@@ -12,6 +12,7 @@
  * @throws API_Exception
  */
 function civicrm_api3_maf_contribution_linkdonorgroup($params) {
+  set_time_limit(0);
   $totalProcessed = 0;
   /*
    * get all contributions with status completed in 2014
@@ -22,9 +23,6 @@ function civicrm_api3_maf_contribution_linkdonorgroup($params) {
     1 => array(1, 'Positive'),
     2 => array(date('Ymd', strtotime('2014-01-01')), 'Date'),
     3 => array(date('Ymd', strtotime('2014-12-31')), 'Date'));
-  CRM_Core_Error::debug('query', $contributionQuery);
-  CRM_Core_Error::debug('params', $contributionParams);
-  exit();
   $contributionDao = CRM_Core_DAO::executeQuery($contributionQuery, $contributionParams);
   while ($contributionDao->fetch()) {
     /*
@@ -38,22 +36,26 @@ function civicrm_api3_maf_contribution_linkdonorgroup($params) {
       if (empty($donorLinkDao->group_id)) {
         _processContribution($contributionDao);
         $totalProcessed++;
+        $returnValues['contribution'][] = $contributionDao->id.'- contact '.$contributionDao->contact_id;
       }
     } else {
       _processContribution($contributionDao);
+      $returnValues['contribution'][] = $contributionDao->id.'- contact '.$contributionDao->contact_id;
       $totalProcessed++;
     }
   }
-  $returnValues = array($totalProcessed.' contributions linked to donor groups');
+  $returnValues['message'] = $totalProcessed.' contributions linked to donor groups';
   return civicrm_api3_create_success($returnValues, $params, 'DonorGroup', 'AddContribution');
 }
 /*
  * Function to process the contribution
  */
 function _processContribution($contribution) {
-  $donorGroupId = ocr_get_contribution_donor_group($contribution->id, $contribution->receive_date, 
+  $donorGroupId = ocr_get_contribution_donorgroup($contribution->id, $contribution->receive_date, 
     $contribution->contact_id);
-  ocr_create_contribution_donorgroup($contribution->id, $donorGroupId);
+  if ($donorGroupId != 0) {
+    ocr_create_contribution_donorgroup($contribution->id, $donorGroupId);
+  }
 }
 
   
