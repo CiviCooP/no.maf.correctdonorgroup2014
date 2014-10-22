@@ -15,6 +15,8 @@
  *     group
  *   - if there is another donor journey group in the history, add a remove of the
  *     first group on the date the other donor journey group starts
+ *   
+ * Run in parts because requires too much server time otherwise
  *
  * @param array $params
  * @see civicrm_api3_create_success
@@ -28,7 +30,7 @@ function civicrm_api3_donor_journey_history_correct($params) {
 
   $contacts = array();
   $selectContacts = 'SELECT DISTINCT(contact_id) AS contact_id FROM civicrm_subscription_history '
-    . ' ORDER BY contact_id';
+    . ' WHERE contact_id < 10000 ORDER BY contact_id';
   $daoContacts = CRM_Core_DAO::executeQuery($selectContacts);
   while ($daoContacts->fetch()) {
     $contacts[] = $daoContacts->contact_id;
