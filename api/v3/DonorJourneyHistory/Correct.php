@@ -122,11 +122,9 @@ function removeCurrentGroupHistory($groupId, $contactId) {
     3 => array('2014-01-01 23:59:59', 'String'));
   $result = CRM_Core_DAO::executeQuery($queryCurrentHist, $paramsCurrentHist);
   /*
-   * if something has been deleted, also remove GroupContacts
+   * update GroupContact to reflect that donor group was added
    */
-  if ($result->N > 0) {
-    removeGroupContacts($contactId, $groupId);
-  }
+  updateGroupContacts($contactId, $groupId);
 }
 /**
  * Function to remove GroupContacts if group no longer in history
@@ -134,20 +132,37 @@ function removeCurrentGroupHistory($groupId, $contactId) {
  * @param int $contactId
  * @param int $groupId
  */
-function removeGroupContacts($contactId, $groupId) {
+function updateGroupContacts($contactId, $groupId) {
   /*
    * remove groupcontacts if group no longer in history
+   * or make sure there is an 'Added' record if it is
    */
   $countHist = 'SELECT COUNT(*) AS countGroup FROM civicrm_subscription_history WHERE group_id = %1';
   $paramsHist = array(1 => array($groupId, 'Positive'));
   $daoHist = CRM_Core_DAO::executeQuery($countHist, $paramsHist);
   if ($daoHist->fetch()) {
+    $paramsGroupContact = array(
+      1 => array($contactId, 'Positive'),
+      2 => array($groupId, 'Positive'));
     if ($daoHist->countGroup == 0) {
-      $queryGroupContact = 'DELETE FROM civicrm_group_contact WHERE contact_id = %1 AND group_id = %2';
-      $paramsGroupContact = array(
-        1 => array($contactId, 'Positive'),
-        2 => array($groupId, 'Positive'));
-      CRM_Core_DAO::executeQuery($queryGroupContact, $paramsGroupContact);
+      $deleteGroupContact = 'DELETE FROM civicrm_group_contact WHERE contact_id = %1 AND group_id = %2';
+      CRM_Core_DAO::executeQuery($deleteGroupContact, $paramsGroupContact);
+    } else {
+      $selectGroupContact = 'SELECT id FROM civicrm_group_contact WHERE contact_id = %1 AND group_id = %2';
+      $daoGroupContact = CRM_Core_DAO::executeQuery($selectGroupContact, $paramsGroupContact);
+      if ($daoGroupContact->fetch()) {
+        $updateGroupContact = 'UPDATE civicrm_group_contact SET status = "Added" WHERE id = %1';
+        $updateParams = array(1 => array($daoGroupContact->id, 'Positive'));
+        CRM_Core_DAO::executeQuery($updateGroupContact, $updateParams);
+      } else {
+        $insertGroupContact = 'INSERT INTO civicrm_group_contact (group_id, contact_id, '
+          . 'status) VALUES(%1, %2, %3)';
+        $insertParams = array(
+          1 => array($groupId, 'Positive'),
+          2 => array($contactId, 'Positive'),
+          3 => array('Added', 'String'));
+        CRM_Core_DAO::executeQuery($insertGroupContact, $insertParams);
+      }
     }
   }
 }
