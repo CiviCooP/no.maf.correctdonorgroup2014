@@ -20,6 +20,7 @@
  * @see civicrm_api3_create_success
  * @see civicrm_api3_create_error
  */
+set_time_limit(0);
 function civicrm_api3_donor_journey_history_correct($params) {
   if (!function_exists('ocr_check_group_is_donorgroup')) {
     throw new Exception('Could not find function ocr_check_group_is_donorgroup, can not execute correction');
