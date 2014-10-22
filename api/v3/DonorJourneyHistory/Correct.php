@@ -190,7 +190,7 @@ function checkOtherDonorGroupHistory($groupId, $contactId) {
 }
 function insertRemove($contactId, $groupId, $removeDate) {
   $queryInsert = 'INSERT INTO civicrm_subscription_history (contact_id, group_id, date, method, status) '
-    . 'VALUES(%1, %2, %3, %4, %5';
+    . 'VALUES(%1, %2, %3, %4, %5)';
   $paramsInsert = array(
     1 => array($contactId, 'Positive'),
     2 => array($groupId, 'Positive'),
@@ -198,9 +198,6 @@ function insertRemove($contactId, $groupId, $removeDate) {
     4 => array('API', 'String'),
     5 => array('Removed', 'String')
   );
-  CRM_Core_Error::debug('queryInsert', $queryInsert);
-  CRM_Core_Error::debug('paramsInsert', $paramsInsert);
-  exit();
   CRM_Core_DAO::executeQuery($queryInsert, $paramsInsert);
 }
 function getSubGroups() {
