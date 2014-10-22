@@ -30,7 +30,7 @@ function civicrm_api3_donor_journey_history_correct($params) {
 
   $contacts = array();
   $selectContacts = 'SELECT DISTINCT(contact_id) AS contact_id FROM civicrm_subscription_history '
-    . ' WHERE contact_id >= 30000 ORDER BY contact_id';
+    . ' WHERE contact_id = 827 ORDER BY contact_id';
   $daoContacts = CRM_Core_DAO::executeQuery($selectContacts);
   while ($daoContacts->fetch()) {
     $contacts[] = $daoContacts->contact_id;
@@ -205,6 +205,6 @@ function insertRemove($contactId, $groupId, $removeDate) {
 }
 function getSubGroups() {
   return array(6571, 6574, 6576, 6578, 6565, 6566, 6567, 6568, 6572, 6573, 6575, 6577, 
-    6556, 6557, 6558, 6559, 6560, 6561, 6562, 6563, 6564, 6569, 6570, 6531, 6532,
-    6533, 6534, 6535, 6536, 6537, 6538, 6539, 6540, 6541, 6542, 6543, 6544, 6545, 6546, 6524);
+    6556, 6557, 6558, 6559, 6560, 6561, 6562, 6563, 6564, 6569, 6570, 6531, 6532, 6581, 6583, 
+    6533, 6534, 6535, 6536, 6537, 6538, 6539, 6540, 6541, 6542, 6543, 6544, 6545, 6546, 6579, 6587);
 }
