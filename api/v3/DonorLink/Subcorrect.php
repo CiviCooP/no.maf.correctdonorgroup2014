@@ -57,7 +57,7 @@ function civicrm_api3_donor_link_subcorrect($params) {
     6579 => 6523
   );
   $query = 'SELECT * FROM civicrm_contribution_donorgroup WHERE group_id != 0 '
-    . 'AND contribution_id IN(734272)';
+    . 'AND contribution_id IN(717537, 719936, 722383, 725711, 727861)';
   $dao = CRM_Core_DAO::executeQuery($query);
   while ($dao->fetch()) {
     if (isset($replacements[$dao->group_id])) {
