@@ -2,7 +2,7 @@
 <extension key="no.maf.correctdonorgroup2014" type="module">
   <file>correctdonorgroup2014</file>
   <name>Donor Groups for 2014 Contributions</name>
-  <description>Set Donor Group for all completed 2014 contributions that do not have any yet</description>
+  <description>Correct several issues with Donor Journey subgroups that are no longer used</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Erik Hommel</author>

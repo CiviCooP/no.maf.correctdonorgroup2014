@@ -53,8 +53,8 @@ function processSubscriptionHistory($contactId) {
   $queryFirstDay = 'SELECT group_id FROM civicrm_subscription_history WHERE contact_id = %1 AND (date >= %2 AND date <= %3)';
   $paramsFirstDay = array(
     1 => array($contactId, 'Positive'),
-    2 => array('2013-10-01 00:00:00', 'String'), 
-    3 => array('2013-10-01 23:59:59', 'String'));
+    2 => array('2014-01-01 00:00:00', 'String'), 
+    3 => array('2014-01-01 23:59:59', 'String'));
   $daoFirstDay = CRM_Core_DAO::executeQuery($queryFirstDay, $paramsFirstDay);
   while ($daoFirstDay->fetch()) {
     if (ocr_check_group_is_donorgroup($daoFirstDay->group_id) == TRUE) {
@@ -119,7 +119,7 @@ function removeCurrentGroupHistory($groupId, $contactId) {
   $paramsCurrentHist = array(
     1 => array($contactId, 'Positive'), 
     2 => array($groupId, 'Positive'),
-    3 => array('2013-10-01 23:59:59', 'String'));
+    3 => array('2014-01-01 23:59:59', 'String'));
   $result = CRM_Core_DAO::executeQuery($queryCurrentHist, $paramsCurrentHist);
   /*
    * if something has been deleted, also remove GroupContacts
@@ -163,7 +163,7 @@ function checkOtherDonorGroupHistory($groupId, $contactId) {
   $paramsDonorGroupHist = array(
     1 => array($contactId, 'Positive'), 
     2 => array($groupId, 'Positive'),
-    3 => array('2013-10-01 23:59:59', 'String'),
+    3 => array('2014-01-01 23:59:59', 'String'),
     4 => array('Added', 'String'));
   $daoDonorGroupHist = CRM_Core_DAO::executeQuery($queryDonorGroupHist, $paramsDonorGroupHist);
   while ($daoDonorGroupHist->fetch()) {
