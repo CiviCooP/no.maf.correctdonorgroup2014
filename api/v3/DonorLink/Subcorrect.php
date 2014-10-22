@@ -20,9 +20,11 @@ function civicrm_api3_donor_link_subcorrect($params) {
     6566 => 6511,
     6567 => 6511,
     6568 => 6511,
-    6524 => 6513,
+    6581 => 6512,
+    6583 => 6512,
     6572 => 6513,
     6573 => 6513,
+    6575 => 6513,
     6577 => 6513,
     6556 => 6514,
     6557 => 6514,
@@ -50,9 +52,13 @@ function civicrm_api3_donor_link_subcorrect($params) {
     6543 => 6521,
     6544 => 6521,
     6545 => 6521,
+    6587 => 6521,
     6546 => 6523,
+    6579 => 6523
   );
-  $query = 'SELECT * FROM civicrm_contribution_donorgroup WHERE group_id != 0';
+  $query = 'SELECT * FROM civicrm_contribution_donorgroup WHERE group_id != 0 '
+    . 'AND contribution_id IN(707791,713041,714146,716354,719054,721190,723741,'
+    . '726624,728598,730329,730697,733355, 735736)';
   $dao = CRM_Core_DAO::executeQuery($query);
   while ($dao->fetch()) {
     if (isset($replacements[$dao->group_id])) {
