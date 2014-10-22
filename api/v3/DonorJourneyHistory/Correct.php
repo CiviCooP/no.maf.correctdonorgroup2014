@@ -27,7 +27,7 @@ function civicrm_api3_donor_journey_history_correct($params) {
 
   $contacts = array();
   $selectContacts = 'SELECT DISTINCT(contact_id) AS contact_id FROM civicrm_subscription_history '
-    . ' ORDER BY contact_id';
+    . ' WHERE contact_id IN(29420, 29967) ORDER BY contact_id';
   $daoContacts = CRM_Core_DAO::executeQuery($selectContacts);
   while ($daoContacts->fetch()) {
     $contacts[] = $daoContacts->contact_id;
