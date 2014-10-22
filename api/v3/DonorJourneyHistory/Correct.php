@@ -198,6 +198,9 @@ function insertRemove($contactId, $groupId, $removeDate) {
     4 => array('API', 'String'),
     5 => array('Removed', 'String')
   );
+  CRM_Core_Error::debug('queryInsert', $queryInsert);
+  CRM_Core_Error::debug('paramsInsert', $paramsInsert);
+  exit();
   CRM_Core_DAO::executeQuery($queryInsert, $paramsInsert);
 }
 function getSubGroups() {
