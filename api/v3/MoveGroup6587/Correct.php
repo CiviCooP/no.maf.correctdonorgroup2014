@@ -9,7 +9,7 @@
  * @see civicrm_api3_create_error
  */
 
-function civicrm_api3_donor_link_subcorrect($params) {
+function civicrm_api3_move_group_6587_correct($params) {
   $query6587 = 'SELECT * FROM civicrm_group_contact WHERE group_id = %1';
   $params6587 = array(1 => array(6587, 'Positive'));
   $dao6587 = CRM_Core_DAO::executeQuery($query6587, $params6587);
