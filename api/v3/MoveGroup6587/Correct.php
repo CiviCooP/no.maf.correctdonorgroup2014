@@ -31,7 +31,7 @@ function civicrm_api3_move_group6587_correct($params) {
       $update = 'UPDATE civicrm_group_contact SET group_id = %1 WHERE id = %2';
       $paramsUpdate = array(
         1 => array(6521, 'Positive'),
-        2 => array($dao6587->id));
+        2 => array($dao6587->id, 'Positive'));
       CRM_Core_DAO::executeQuery($update, $paramsUpdate);
     }
   }
