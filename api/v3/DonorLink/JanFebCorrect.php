@@ -12,13 +12,13 @@
  */
 function civicrm_api3_donor_link_janfebcorrect($params) {
   $querySelect = 
-    'SELECT a.contribution_id
+    'SELECT DISTINCT(a.contribution_id)
 FROM civicrm_contribution_donorgroup a
 JOIN civicrm_contribution b ON a.contribution_id = b.id
 WHERE b.contribution_status_id = %1
 AND b.contribution_recur_id > %2 
-AND (b.receive_date >= %3 AND b.receive_date <= %4)
-AND b.group_id = %5';
+AND b.receive_date BETWEEN %3 AND %4
+AND a.group_id = %5';
   
   $paramsSelect = array(
     1 => array(1, 'Positive'),
@@ -29,8 +29,10 @@ AND b.group_id = %5';
     
   $dao = CRM_Core_DAO::executeQuery($querySelect, $paramsSelect);
   while ($dao->fetch()) {
-    $queryUpdate = 'UPDATE civicrm_contribution_donorgroup SET group_id = 6513 WHERE contribution_id = %1';
-    $paramsUpdate = array(1 => array($dao->contribution_id, 'Positive'));
+    $queryUpdate = 'UPDATE civicrm_contribution_donorgroup SET group_id = %1 WHERE contribution_id = %2';
+    $paramsUpdate = array(
+      1 => array(6513, 'Positive'),
+      2 => array($dao->contribution_id, 'Positive'));
     CRM_Core_DAO::executeQuery($queryUpdate, $paramsUpdate);
   }
   $returnValues = array();
