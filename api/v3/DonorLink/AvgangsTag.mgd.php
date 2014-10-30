@@ -6,16 +6,16 @@
 return array (
   0 => 
   array (
-    'name' => 'Cron:DonorLink.JanFebCorrect',
+    'name' => 'Cron:DonorLink.AvgangsTag',
     'entity' => 'Job',
     'params' => 
     array (
       'version' => 3,
-      'name' => 'Call DonorLink.JanFebCorrect API',
-      'description' => 'Call DonorLink.JanFebCorrect API',
+      'name' => 'Call DonorLink.AvgangsTag API',
+      'description' => 'Call DonorLink.AvgangsTag API',
       'run_frequency' => 'Daily',
       'api_entity' => 'DonorLink',
-      'api_action' => 'JanFebCorrect',
+      'api_action' => 'AvgangsTag',
       'parameters' => '',
       'is_active' => 0
     ),
