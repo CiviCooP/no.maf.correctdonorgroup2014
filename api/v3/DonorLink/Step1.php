@@ -11,7 +11,7 @@
  * @throws API_Exception
  */
 function civicrm_api3_donor_link_step1($params) {
-  $queryAdded = 'SELECT * FROM civicrm_subscription_history WHERE status = %1 AND date >= %2';
+  $queryAdded = 'SELECT * FROM civicrm_subscription_history WHERE status = %1 AND date >= %2 AND contact_id = 827';
   $paramsAdded = array(
     1 => array('Added', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
@@ -40,6 +40,9 @@ function civicrm_api3_donor_link_step1($params) {
         'group_id' => $daoAdded->group_id,
         'date' => $dateAdded);
     }
+  }
+  if (!isset($returnValues)) {
+    $returnValues = array();
   }
   return civicrm_api3_create_success($returnValues, $params, 'DonorLink', 'Step1');
 }

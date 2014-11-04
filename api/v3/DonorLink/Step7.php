@@ -15,11 +15,11 @@ function civicrm_api3_donor_link_step7($params) {
    * select all adds from civicrm_subscription_history for 2014
    */
   $query = 'SELECT contact_id, group_id FROM civicrm_subscription_history WHERE '
-    . 'status = %1 AND date >= %2 GROUP BY contact_id, group_id';
+    . 'status = %1 AND date >= %2 AND contact_id = 827 GROUP BY contact_id, group_id';
   $paramsQuery = array(
     1 => array('Added', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
-  $dao = CRM_Core_DAO::executeQuery($dao, $paramsQuery);
+  $dao = CRM_Core_DAO::executeQuery($query, $paramsQuery);
   while ($dao->fetch()) {
     /*
      * check if processing required (only if no removes and more than one adds)
@@ -35,13 +35,14 @@ function civicrm_api3_donor_link_step7($params) {
 /*
  * function returns true if there are > 1 adds and no removals for contact and group
  */
-function setp7Processing($contactId, $groupId) {
+function step7Processing($contactId, $groupId) {
   $queryAdded = 'SELECT COUNT(*) AS count_added FROM civicrm_subscription_history '
     . 'WHERE contact_id = %1 AND group_id = %2 AND status = %3';
   $paramsAdded = array(
     1 => array($contactId, 'Positive'),
     2 => array($groupId, 'Positive'),
     3 => array('Added', 'String'));
+  
   $daoAdded = CRM_Core_DAO::executeQuery($queryAdded, $paramsAdded);
   if ($daoAdded->fetch()) {
     if ($daoAdded->count_added > 1) {

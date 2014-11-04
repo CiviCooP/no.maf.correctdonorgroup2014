@@ -15,7 +15,7 @@ function civicrm_api3_donor_link_step6($params) {
    * read all removes from subscription history in 2014
    */
   $querySelect = 'SELECT id, contact_id, group_id, date FROM civicrm_subscription_history '
-    . 'WHERE status = %1 AND date >= %2';
+    . 'WHERE status = %1 AND date >= %2 AND contact_id = 827';
   $paramsSelect = array(
     1 => array('Removed', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
@@ -32,8 +32,8 @@ function civicrm_api3_donor_link_step6($params) {
       2 => array($daoSelect->contact_id, 'Positive'),
       3 => array($daoSelect->group_id, 'Positive'),
       4 => array('Removed', 'String'),
-      5 => array(strtotime('Ymd', $daoSelect->date).' 00:00:00', 'String'),
-      6 => array(strtotime('Ymd', $daoSelect->date).' 23:59:59', 'String'));
+      5 => array(date('Y-m-d', strtotime($daoSelect->date)).' 00:00:00', 'String'),
+      6 => array(date('Y-m-d', strtotime($daoSelect->date)).' 23:59:59', 'String'));
     $daoSameDay = CRM_Core_DAO::executeQuery($querySameDay, $paramsSameDay);
     while ($daoSameDay->fetch()) {
       correctdonorgroup2014_add_contact($daoSelect->contact_id);
