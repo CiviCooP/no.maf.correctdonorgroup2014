@@ -46,9 +46,13 @@ function correctdonorgroup2014_civicrm_uninstall() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
 function correctdonorgroup2014_civicrm_enable() {
+  CRM_Core_DAO::executeQuery('CREATE TABLE IF NOT EXISTS donorlink_corrections (
+  contact_id int(11)
+  PRIMARY KEY (contact_id),
+  UNIQUE KEY contact_id_UNIQUE (contact_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8');
   return _correctdonorgroup2014_civix_civicrm_enable();
 }
-
 /**
  * Implementation of hook_civicrm_disable
  *
@@ -106,3 +110,19 @@ function correctdonorgroup2014_civicrm_caseTypes(&$caseTypes) {
 function correctdonorgroup2014_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _correctdonorgroup2014_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
+/*
+ * function to create record in donorlink_corrections
+ * if not exists
+ */
+function correctdonorgroup2014_add_contact($contactId) {
+  $params = array(1 => array($contactId, 'Positive'));
+  $querySelect = 'SELECT COUNT(*) AS count_contact FROM donorlink_corrections WHERE contact_id = %1';
+  $dao = CRM_COre_DAO::executeQuery($querySelect, $params);
+  if ($dao->fetch()) {
+    if ($dao->count_contact == 0) {
+    $query = 'INSERT INTO donorlink_corrections SET contact_id = %1';
+    CRM_Core_DAO::executeQuery($query, $params);
+    }
+  }
+}
+
