@@ -19,6 +19,7 @@ function civicrm_api3_donor_link_step5($params) {
   $paramsSelect = array(
     1 => array('Added', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
+  $ignored_ids = array();
   $daoSelect = CRM_Core_DAO::executeQuery($querySelect, $paramsSelect);
   while ($daoSelect->fetch()) {
     $ignored_ids[] = $daoSelect->id;
@@ -26,14 +27,14 @@ function civicrm_api3_donor_link_step5($params) {
      * remove all adds on same date/contact/group
      */
     $querySameDay = 'SELECT id FROM civicrm_subscription_history WHERE id NOT IN('
-      .implode(',', $ignored_ids).') AND contact_id = %2 AND group_id = %3 AND '
-      . 'status = %4 AND date BETWEEN %5 AND %6';
+      .implode(',', $ignored_ids).') AND contact_id = %1 AND group_id = %2 AND '
+      . 'status = %3 AND date BETWEEN %4 AND %5';
     $paramsSameDay = array(
-      2 => array($daoSelect->contact_id, 'Positive'),
-      3 => array($daoSelect->group_id, 'Positive'),
-      4 => array('Added', 'String'),
-      5 => array(date('Y-m-d', strtotime($daoSelect->date)).' 00:00:00', 'String'),
-      6 => array(date('Y-m-d', strtotime($daoSelect->date)).' 23:59:59', 'String'));
+      1 => array($daoSelect->contact_id, 'Positive'),
+      2 => array($daoSelect->group_id, 'Positive'),
+      3 => array('Added', 'String'),
+      4 => array(date('Y-m-d', strtotime($daoSelect->date)).' 00:00:00', 'String'),
+      5 => array(date('Y-m-d', strtotime($daoSelect->date)).' 23:59:59', 'String'));
     $daoSameDay = CRM_Core_DAO::executeQuery($querySameDay, $paramsSameDay);
     while ($daoSameDay->fetch()) {
       $ignored_ids[] = $daoSameDay->id;
