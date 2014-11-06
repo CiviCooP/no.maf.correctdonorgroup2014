@@ -9,6 +9,7 @@
  * @see civicrm_api3_create_error
  * @throws API_Exception
  */
+set_time_limit(0);
 function civicrm_api3_donor_link_step2($params) {
   $subgroups = array(6521, 6522, 6523, 6256, 6528, 6547, 6548, 6549, 6550, 6554, 
     6555, 6569, 6570, 6562, 6563, 6564, 6556, 6557, 6558, 6559, 6560, 6561, 6572, 

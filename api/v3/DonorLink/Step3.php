@@ -9,6 +9,7 @@
  * @see civicrm_api3_create_error
  * @throws API_Exception
  */
+set_time_limit(0);
 function civicrm_api3_donor_link_step3($params) {
   $replaceGroups = getReplaceGroups();
   $querySelect = 'SELECT * FROM civicrm_subscription_history WHERE date > %1 AND '

@@ -10,6 +10,7 @@
  * @see civicrm_api3_create_error
  * @throws API_Exception
  */
+set_time_limit(0);
 function civicrm_api3_donor_link_step7($params) {
   /*
    * select all adds from civicrm_subscription_history for 2014
