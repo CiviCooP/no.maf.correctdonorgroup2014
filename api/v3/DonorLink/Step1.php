@@ -35,15 +35,9 @@ function civicrm_api3_donor_link_step1($params) {
         1 => array($daoAdded->id, 'Positive'),
         2 => array($daoRemoved->id, 'Positive'));
       CRM_Core_DAO::executeQuery($delete, $deleteParams);
-      $returnValues['values'][] = array(
-        'contact_id' => $daoAdded->contact_id,
-        'group_id' => $daoAdded->group_id,
-        'date' => $dateAdded);
     }
   }
-  if (!isset($returnValues)) {
-    $returnValues = array();
-  }
+  $returnValues = array();
   return civicrm_api3_create_success($returnValues, $params, 'DonorLink', 'Step1');
 }
 
