@@ -12,7 +12,7 @@
 function civicrm_api3_donor_link_step3($params) {
   $replaceGroups = getReplaceGroups();
   $querySelect = 'SELECT * FROM civicrm_subscription_history WHERE date > %1 AND '
-    . 'group_id BETWEEN %2 AND %3 AND contact_id = 1461';
+    . 'group_id BETWEEN %2 AND %3 AND contact_id = 24587';
   $paramsSelect = array(
     1 => array('2014-01-01 00:00:00', 'String'),
     2 => array(6526, 'Positive'),
