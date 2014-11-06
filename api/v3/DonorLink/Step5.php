@@ -15,7 +15,7 @@ function civicrm_api3_donor_link_step5($params) {
    * read all adds from subscription history in 2014
    */
   $querySelect = 'SELECT id, contact_id, group_id, date FROM civicrm_subscription_history '
-    . 'WHERE status = %1 AND date >= %2 AND contact_id = 48877';
+    . 'WHERE status = %1 AND date >= %2 AND contact_id < 15000';
   $paramsSelect = array(
     1 => array('Added', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
