@@ -37,7 +37,7 @@ function civicrm_api3_donor_link_step1a($params) {
 }
 
 function checkToBeDeleted($contactId, $groupId, $dateRemoved) {
-  $query = 'SELECT COUNT(*) FROM civicrm_subscription_history AS count_added WHERE '
+  $query = 'SELECT COUNT(*) AS count_added FROM civicrm_subscription_history AS count_added WHERE '
     . 'contact_id = %1 AND group_id = %2 AND status = %3 AND date < %4';
   $params = array(
     1 => array($contactId, 'Positive'),
