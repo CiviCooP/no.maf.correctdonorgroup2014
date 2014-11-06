@@ -29,7 +29,7 @@ function civicrm_api3_donor_link_step1a($params) {
       correctdonorgroup2014_add_contact($daoSelect->contact_id);
       $queryDelete = 'DELETE FROM civicrm_subscription_history WHERE id = %1';
       $paramsDelete = array(1 => array($daoSelect->id, 'Positive'));
-      CRM_CoreDAO::executeQuery($queryDelete, $paramsDelete);
+      CRM_Core_DAO::executeQuery($queryDelete, $paramsDelete);
     }
   }
   $returnValues = array();
