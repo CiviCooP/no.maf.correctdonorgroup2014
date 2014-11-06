@@ -13,7 +13,7 @@ function civicrm_api3_donor_link_step8($params) {
   /*
    * rebuild group_contactfor affected contacts
    */
-  $daoLink = CRM_Core_DAO::executeQuery('SELECT * FROM donorlink_corrections WHERE contact_id BETWEEN 27501 AND 30000');
+  $daoLink = CRM_Core_DAO::executeQuery('SELECT * FROM donorlink_corrections WHERE contact_id BETWEEN 30001 AND 32500');
   while ($daoLink->fetch()) {
     deleteGroupContact($daoLink->contact_id);
     rebuildGroupContact($daoLink->contact_id);
