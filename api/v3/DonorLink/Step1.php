@@ -11,7 +11,8 @@
  * @throws API_Exception
  */
 function civicrm_api3_donor_link_step1($params) {
-  $queryAdded = 'SELECT * FROM civicrm_subscription_history WHERE status = %1 AND date >= %2 AND contact_id BETWEEN 30001 AND 35000';
+  $queryAdded = 'SELECT * FROM civicrm_subscription_history WHERE status = %1 AND date >= %2 '
+    . 'AND contact_id BETWEEN 35001 AND 37500';
   $paramsAdded = array(
     1 => array('Added', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));

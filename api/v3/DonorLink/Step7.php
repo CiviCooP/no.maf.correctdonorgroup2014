@@ -16,7 +16,7 @@ function civicrm_api3_donor_link_step7($params) {
    * select all adds from civicrm_subscription_history for 2014
    */
   $query = 'SELECT contact_id, group_id FROM civicrm_subscription_history WHERE '
-    . 'status = %1 AND date >= %2 AND contact_id BETWEEN 30001 AND 35000 GROUP BY contact_id, group_id';
+    . 'status = %1 AND date >= %2 AND contact_id BETWEEN 35001 AND 37500 GROUP BY contact_id, group_id';
   $paramsQuery = array(
     1 => array('Added', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
