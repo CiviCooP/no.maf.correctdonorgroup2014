@@ -12,7 +12,7 @@
  */
 function civicrm_api3_donor_link_step1($params) {
   $queryAdded = 'SELECT * FROM civicrm_subscription_history WHERE status = %1 AND date >= %2 '
-    . 'AND contact_id BETWEEN 37501 AND 40000';
+    . 'AND contact_id BETWEEN 40000 AND 47500';
   $paramsAdded = array(
     1 => array('Added', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
