@@ -17,7 +17,7 @@ function civicrm_api3_donor_link_step6($params) {
    */
   $ignored_ids = array();
   $querySelect = 'SELECT id, contact_id, group_id, date FROM civicrm_subscription_history '
-    . 'WHERE status = %1 AND date >= %2 AND contact_id BETWEEN 40000 AND 47500';
+    . 'WHERE status = %1 AND date >= %2 AND contact_id > 47500';
   $paramsSelect = array(
     1 => array('Removed', 'String'),
     2 => array('2014-01-01 00:00:00', 'String'));
